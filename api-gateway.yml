@@ -1,0 +1,38 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: notification
+          uri: lb://notification-service
+          predicates:
+            - Path=/api/notifications/**
+        - id: authorization
+          uri: lb://authorization-service
+          predicates:
+            - Path=/api/authorizations/**
+        - id: employee
+          uri: lb://employee-service
+          predicates:
+            - Path=/api/employees/**
+        - id: department
+          uri: lb://department-service
+          predicates:
+            - Path=/api/departments/**
+        - id: project
+          uri: lb://project-service
+          predicates:
+            - Path=/api/projects/**
+        - id: task
+          uri: lb://task-service
+          predicates:
+            - Path=/api/tasks/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
